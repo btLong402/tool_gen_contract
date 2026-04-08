@@ -9,7 +9,11 @@ if exist assets\app.ico (
 	echo [info] Icon not found at assets\app.ico. Building without custom icon.
 )
 
+if not exist templates_storage mkdir templates_storage
+if not exist exports mkdir exports
+
 pyinstaller --noconfirm --clean --onefile --windowed --name ContractAutomation %ICON_ARG% --add-data "templates_storage;templates_storage" --add-data "exports;exports" src\main.py
+if errorlevel 1 exit /b 1
 
 echo.
 echo Build complete. Output is in dist\ContractAutomation.exe
