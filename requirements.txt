@@ -1,0 +1,4 @@
+PyQt6>=6.7.0
+docxtpl>=0.20.0
+docx2pdf>=0.1.8
+pyinstaller>=6.0.0

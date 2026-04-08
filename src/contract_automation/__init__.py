@@ -1,0 +1,1 @@
+"""Contract automation desktop application."""
