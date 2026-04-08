@@ -2,7 +2,14 @@
 setlocal
 
 REM Build Windows onedir package using CLI flags
-pyinstaller --noconfirm --clean --windowed --name ContractAutomation --icon assets\app.ico --add-data "templates_storage;templates_storage" --add-data "exports;exports" src\main.py
+set ICON_ARG=
+if exist assets\app.ico (
+	set ICON_ARG=--icon assets\app.ico
+) else (
+	echo [info] Icon not found at assets\app.ico. Building without custom icon.
+)
+
+pyinstaller --noconfirm --clean --windowed --name ContractAutomation %ICON_ARG% --add-data "templates_storage;templates_storage" --add-data "exports;exports" src\main.py
 
 echo.
 echo Build complete. Output is in dist\ContractAutomation\

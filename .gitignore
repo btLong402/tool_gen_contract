@@ -48,6 +48,9 @@ exports/
 *.docx
 *.pdf
 
+# Local release artifacts
+releases/
+
 # Database files
 *.db
 *.sqlite

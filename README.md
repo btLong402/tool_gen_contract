@@ -76,6 +76,54 @@ Output files:
 
 If you distribute outside your machine, consider Apple code signing and notarization.
 
+## Release Automation (Versioned Artifacts)
+
+Use the release scripts to build and package artifacts into `releases/` with version + timestamp naming.
+
+### macOS
+- Auto version from git tag/commit:
+   ```bash
+   ./packaging/macos/release.sh
+   ```
+- Explicit version:
+   ```bash
+   RELEASE_VERSION=v1.2.0 ./packaging/macos/release.sh
+   ```
+
+Artifacts are generated under `releases/macos/`:
+- `ContractAutomation_<version>_<timestamp>_macos_app.zip`
+- `ContractAutomation_<version>_<timestamp>_macos.dmg`
+
+### Windows
+- Onedir release:
+   ```bat
+   packaging\windows\release_onedir.bat v1.2.0
+   ```
+- Onefile release:
+   ```bat
+   packaging\windows\release_onefile.bat v1.2.0
+   ```
+
+Artifacts are generated under `releases\windows\`.
+
+## GitHub Workflow (Auto Release)
+
+This project includes CI/CD workflow at `.github/workflows/release.yml`.
+
+Trigger condition:
+- Push tag matching `v*` (example: `v1.2.0`)
+
+What it does:
+- Build macOS artifacts (`.dmg` + app `.zip`)
+- Build Windows artifacts (onedir `.zip` + onefile `.exe`)
+- Create GitHub Release and attach all artifacts
+
+Release command sequence:
+```bash
+git tag v1.2.0
+git push origin v1.2.0
+```
+
 ## Notes
 - PDF export depends on local Microsoft Word integration (`docx2pdf`).
 - Keep template placeholders in jinja-compatible syntax: `{{variable_name}}`.
